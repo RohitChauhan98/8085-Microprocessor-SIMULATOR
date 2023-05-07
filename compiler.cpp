@@ -1,36 +1,18 @@
+#include "compiler.h"
+
 #include <iostream>
 #include <string>
-#include <unordered_map>
 using namespace std;
 
+
 int A, B, C, D, E, H, L;
-
-
-void LDA(string address,int Memory[]);
-void MOV(char mainReg, char secReg);
-void STA(string address,int Memory[]);
-void M(string address,int Memory[]);
-
-void compiler(string opcode, string address, char mainReg, char secReg,int Memory[])
-{
-
-    if (opcode == "LDA")
-        LDA(address,Memory);
-    else if (opcode == "MOV")
-        MOV(mainReg, secReg);
-    else if (opcode == "STA")
-        STA(address,Memory);
-    else if (opcode == "M")
-        M(address,Memory);
-}
-
-void LDA(string address,int Memory[])
+void Compiler::LDA(string address,int Memory[])
 {
     int temp = stoi(address);
     A = Memory[temp];
 }
 
-void MOV(char mainReg, char secReg)
+void Compiler::MOV(char mainReg, char secReg)
 {
     switch (mainReg)
     {
@@ -46,14 +28,27 @@ void MOV(char mainReg, char secReg)
     }
 }
 
-void STA(string address,int Memory[])
+void Compiler::STA(string address,int Memory[])
 {
     int temp = stoi(address);
     Memory[temp] = A;
 }
 
-void M(string address,int Memory[])
+void Compiler::M(string address,int Memory[])
 {
     int temp = stoi(address);
     cout << "Value - " << Memory[temp] << endl;
+}
+
+void Compiler::compiler(string opcode, string address, char mainReg, char secReg,int Memory[])
+{
+    
+    if (opcode == "LDA")
+        Compiler::LDA(address,Memory);
+    else if (opcode == "MOV")
+        Compiler::MOV(mainReg, secReg);
+    else if (opcode == "STA")
+        Compiler::STA(address,Memory);
+    else if (opcode == "M")
+        Compiler::M(address,Memory);
 }

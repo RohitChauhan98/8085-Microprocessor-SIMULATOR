@@ -1,11 +1,12 @@
+#include "Decoder.h"
+#include "compiler.h"
+
 #include <iostream>
 #include <string>
-#include <unordered_map>
 using namespace std;
 
-void compiler(string opcode, string address, char mainReg, char secReg,int Memory[]);
 
-void decoder(string code,int Memory[])
+void Decoder::decoder(string code,int Memory[])
 {
     int i = 0;
     string address;
@@ -51,7 +52,7 @@ void decoder(string code,int Memory[])
             address = code.substr(j, i);
     }
 
+    Compiler comp1;
 
-
-    compiler(opcode, address, mainReg, secReg, Memory);
+    comp1.compiler(opcode, address, mainReg, secReg, Memory);
 }

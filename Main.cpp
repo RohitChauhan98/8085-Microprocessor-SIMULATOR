@@ -1,22 +1,26 @@
+#include "Decoder.h"
+#include "compiler.h"
+
 #include <iostream>
 #include <string>
-#include <unordered_map>
 using namespace std;
 
-void decoder(string instr,int Memory[]);
 
 int main()
 {
-    int Memory[5000] = {0};
-    Memory[2050] = 5;
-    Memory[2051] = 3;
 
     cout << "Enter code below: " << endl;
     string code = "Hello";
 
+    int Memory[5000]={0};
+    Memory[2050] = 5;
+    Memory[2051] = 3;
+    
+    Decoder dec1;
+
     while (code != "HLT")
     {
         getline(cin, code);
-        decoder(code, Memory);
+        dec1.decoder(code, Memory);
     }
 }
