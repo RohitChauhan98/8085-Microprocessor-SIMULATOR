@@ -1,15 +1,14 @@
 #ifndef DECODER_H
 #define DECODER_H
-#include<string>
+#include <string>
 
 using namespace std;
 
 class Decoder
 {
 public:
-
-    void decoder(string code, int Memory[]);
+        void decoder(string command, int *temp);
+    void Execution(string command, int Memory[]);
 };
 
 #endif
-

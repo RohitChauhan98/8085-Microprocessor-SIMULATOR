@@ -40,7 +40,68 @@ void Compiler::M(string address,int Memory[])
     cout << "Value - " << Memory[temp] << endl;
 }
 
-void Compiler::compiler(string opcode, string address, char mainReg, char secReg,int Memory[])
+void Compiler::ADD(string address)
+{
+    int temp = address[0];
+    switch (temp)
+    {
+    case 'A':
+        A = A+A;
+        break;
+    case 'B':
+        A = A+B;
+        break;
+    case 'C':
+        A = A+C;
+        break;
+    case 'D':
+        A = A+D;
+        break;
+
+    default:
+        break;
+    }
+}
+
+
+void Compiler::MVI(char mainReg, int data){
+    switch (mainReg)
+    {
+    case 'A':
+        A = data;
+        break;
+    case 'B':
+        B = data;
+        break;
+    case 'C':
+        C = data;
+        break;
+    case 'D':
+        D = data;
+        break;
+
+    default:
+        break;
+    }
+}
+
+void Compiler::Instruction_Size(string opcode, int *temp)
+{
+    
+    if (opcode == "LDA")
+        *temp = 3;
+    else if (opcode == "MOV")
+        *temp = 1;
+    else if (opcode == "STA")
+        *temp = 3;
+    else if (opcode == "M")
+        *temp = 1;
+    else
+        *temp = 1;
+}
+
+
+void Compiler::Execute(string opcode, string address, char mainReg, char secReg,int Memory[])
 {
     
     if (opcode == "LDA")
@@ -52,3 +113,8 @@ void Compiler::compiler(string opcode, string address, char mainReg, char secReg
     else if (opcode == "M")
         Compiler::M(address,Memory);
 }
+
+
+
+
+

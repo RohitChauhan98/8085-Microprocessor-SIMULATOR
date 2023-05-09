@@ -5,9 +5,9 @@
 #include <string>
 using namespace std;
 
-
-void Decoder::decoder(string code,int Memory[])
-{
+// FUNCTION OF DECODING AND RETURN THE INSTRUCTION SIZE
+ void Decoder::decoder(string command, int *temp)
+ {
     int i = 0;
     string address;
     string opcode;
@@ -15,44 +15,113 @@ void Decoder::decoder(string code,int Memory[])
     char secReg;
     int data;
 
-    if (code[0] == 'M' && code[1] != 'O')
+    if (command[0] == 'M' && command[1] != 'O')
     {
 
         opcode = "M";
         i += 1;
-        while (code[i] != '\0')
+        while (command[i] != '\0')
         {
             i++;
         }
-        address = code.substr(1, i);
-        
+        address = command.substr(1, i);
+    }
+
+    else if (command[0] == 'M' && command[1] == 'V')
+    {
+        opcode = "MVI";
+        mainReg = command[4];
+        string temp = command.substr(5, 7);
+        int data = stoi(temp);
     }
 
     else
     {
-        while (code[i] != ' ')
+        while (command[i] != ' ')
         {
             i++;
         }
-        opcode = code.substr(0, i);
+        opcode = command.substr(0, i);
         i += 1;
         int j = i;
-        while (code[i] != '\0')
+        while (command[i] != '\0')
         {
             i++;
         }
 
-        if (code[5] == ',')
+        if (command[5] == ',')
         {
-            mainReg = code[j];
-            secReg = code[j + 2];
+            mainReg = command[j];
+            secReg = command[j + 2];
         }
-        
+
         else
-            address = code.substr(j, i);
+            address = command.substr(j, i);
     }
+    
 
     Compiler comp1;
 
-    comp1.compiler(opcode, address, mainReg, secReg, Memory);
+    comp1.Instruction_Size(opcode, temp);
+}
+
+
+// FUNCTION FOR EXECUTION
+void Decoder::Execution(string command, int Memory[])
+{
+
+    int i = 0;
+    string address;
+    string opcode;
+    char mainReg;
+    char secReg;
+    int data;
+
+    if (command[0] == 'M' && command[1] != 'O')
+    {
+
+        opcode = "M";
+        i += 1;
+        while (command[i] != '\0')
+        {
+            i++;
+        }
+        address = command.substr(1, i);
+    }
+
+    else if (command[0] == 'M' && command[1] == 'V')
+    {
+        opcode = "MVI";
+        mainReg = command[4];
+        string temp = command.substr(5, 7);
+        int data = stoi(temp);
+    }
+
+    else
+    {
+        while (command[i] != ' ')
+        {
+            i++;
+        }
+        opcode = command.substr(0, i);
+        i += 1;
+        int j = i;
+        while (command[i] != '\0')
+        {
+            i++;
+        }
+
+        if (command[5] == ',')
+        {
+            mainReg = command[j];
+            secReg = command[j + 2];
+        }
+
+        else
+            address = command.substr(j, i);
+    }
+
+    Compiler comp2;
+
+    comp2.Execute(opcode, address, mainReg, secReg, Memory);
 }

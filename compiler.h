@@ -15,7 +15,13 @@ public:
 
     void M(std::string address, int Memory[]);
 
-    void compiler(std::string opcode, std::string address, char mainReg, char secReg, int Memory[]);
+    void MVI(char mainReg, int data);
+
+    void ADD(std::string address);
+
+    void Instruction_Size(std::string opcode, int *temp);
+
+    void Execute(std::string opcode, std::string address, char mainReg, char secReg, int Memory[]);
 };
 
 #endif
