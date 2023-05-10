@@ -106,6 +106,7 @@ void Decoder::Execution(string command, int Memory[])
         opcode = command.substr(0, i);
         i += 1;
         int j = i;
+        
         while (command[i] != '\0')
         {
             i++;

@@ -19,6 +19,8 @@ public:
 
     void ADD(std::string address);
 
+    // void 
+
     void Instruction_Size(std::string opcode, int *temp);
 
     void Execute(std::string opcode, std::string address, char mainReg, char secReg, int Memory[]);

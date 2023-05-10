@@ -6,6 +6,15 @@ using namespace std;
 
 
 int A, B, C, D, E, H, L;
+int flag[8] = {0};
+//At 0 index - sign flag
+//At 1 index - zero flag
+//At 3 index - parity flag
+//At 5 index - auxiliaryCarry flag
+//At 7 index - Carry flag
+
+
+
 void Compiler::LDA(string address,int Memory[])
 {
     int temp = stoi(address);
@@ -37,7 +46,7 @@ void Compiler::STA(string address,int Memory[])
 void Compiler::M(string address,int Memory[])
 {
     int temp = stoi(address);
-    cout << "Value - " << Memory[temp] << endl;
+    cout << "Value - " << Memory[temp];
 }
 
 void Compiler::ADD(string address)

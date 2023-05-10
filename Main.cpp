@@ -3,12 +3,13 @@
 
 #include <iostream>
 #include <string>
-#include <unordered_map>
+#include<vector>
+#include <utility>
 using namespace std;
 
 int main()
 {
-    unordered_map<int, string> instruction;
+    vector<pair<int, string>> instruction;
 
     cout << "Enter command below: " << endl;
     string command = "Hello";
@@ -26,35 +27,33 @@ int main()
     {
         cout << start << " ";
         getline(cin, command);
-        if(command == "execute")
+        if (command == "execute")
         {
-            for(auto i:instruction)
+
+            vector<pair<int, string>>::iterator it;
+            for (it = instruction.begin(); it != instruction.end(); ++it)
             {
-                if(i.second == "HLT")
-                {
-                    break;
-                }
-                else
-                {
-                    dec1.Execution(i.second, Memory);
-                }
+                if(it->second == "JNC")
+                    it+=2;
+                dec1.Execution(it->second, Memory);
             }
-            while(command != "Stop"){
+            while (command != "Stop")
+            {
                 getline(cin, command);
                 dec1.Execution(command, Memory);
             }
             return 0;
         }
-        if(command == "HLT")
-        {
-            start += 1;
-            instruction[start] = command;
-            continue;
-        }
+        // if (command == "HLT")
+        // {
+        //     start += 1;
+        //     instruction[start] = command;
+        //     continue;
+        // }
         dec1.decoder(command, &temp);
-        instruction[start] = command;
+        instruction.push_back(make_pair(start, command));
         start += temp;
     }
     return 0;
 }
-        // dec1.Execution(command, Memory);
+// dec1.Execution(command, Memory);
